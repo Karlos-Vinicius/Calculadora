@@ -20,78 +20,34 @@ class Calc:
         self.comprimento_max = 17
         self.comprimento_min = 8
         self.altura = 4
+        self.fg = "#fcfcfc"
+        self.color_bg = "orange"
+        self.dates_botton: list[str] = [
+                             'C', '%', '/', 
+                             '7', '8', '9', '*', 
+                             '4', '5', '6', '+', 
+                             '1', '2', '3', '-', 
+                             '0', '.', '=']
 
-        self.button_clear = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='C',
-                               width=self.comprimento_max, height=self.altura, command=self.delete)
-        self.button_clear.grid(column=0, row=0, columnspan=2)
+        row: int = 0
+        column: int = 0
+        for button_char in self.dates_botton:
+            # Itera sobre cada botão
+            if button_char == 'C':
+                Button(self.frame_screen, font=self.font, fg=self.fg, bg=self.color_bg, text=button_char, width=self.comprimento_max, height=self.altura, command=lambda: self.delete).grid(column=column, row=row, columnspan=2)
+                column += 2
+                
+            elif button_char == '=':
+                Button(self.frame_screen, font=self.font, fg=self.fg, bg=self.color_bg, text=button_char, width=self.comprimento_max, height=self.altura, command=lambda: self.calc).grid(column=column, row=row, columnspan=2)
+                column += 2
 
-        self.button_modulo = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='%',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('%'))
-        self.button_modulo.grid(column=2, row=0)
+            else:
+                Button(self.frame_screen, font=self.font, fg=self.fg, bg=self.color_bg, text=button_char, width=self.comprimento_min, height=self.altura, command=lambda: self.insert(button_char)).grid(column=column, row=row) 
+                column += 1
 
-        self.button_division = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='/',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('/'))
-        self.button_division.grid(column=3, row=0)
-
-        self.button_7 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='7',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('7'))
-        self.button_7.grid(column=0, row=1)
-
-        self.button_8 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='8',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('8'))
-        self.button_8.grid(column=1, row=1)
-
-        self.button_9 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='9',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('9'))
-        self.button_9.grid(column=2, row=1)
-
-        self.button_mult = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='*',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('*'))
-        self.button_mult.grid(column=3, row=1)
-
-        self.button_4 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='4',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('4'))
-        self.button_4.grid(column=0, row=2)
-
-        self.button_5 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='5',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('5'))
-        self.button_5.grid(column=1, row=2)
-
-        self.button_6 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='6',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('6'))
-        self.button_6.grid(column=2, row=2)
-
-        self.button_adicao = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='+',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('+'))
-        self.button_adicao.grid(column=3, row=2)
-
-        self.button_1 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='1',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('1'))
-        self.button_1.grid(column=0, row=3)
-
-        self.button_2 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='2',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('2'))
-        self.button_2.grid(column=1, row=3)
-
-        self.button_3 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='3',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('3'))
-        self.button_3.grid(column=2, row=3)
-
-        self.button_subtracao = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='-',
-                               width=self.comprimento_min, height=self.altura, command=lambda: self.insert('-'))
-        self.button_subtracao.grid(column=3, row=3)
-
-        self.button_0 = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='0',
-                               width=self.comprimento_max, height=self.altura, command=lambda: self.insert('0'))
-        self.button_0.grid(column=0, row=4, columnspan=2)
-
-        self.button_dot = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='.',
-                               width=self.comprimento_min, height=self.altura, command= lambda: self.insert('.'))
-        self.button_dot.grid(column=2, row=4)
-
-        self.button_output = Button(self.frame_screen, font=self.font, fg='#fcfcfc', bg='orange', text='=',
-                               width=self.comprimento_min, height=self.altura, command=self.calc)
-        self.button_output.grid(column=3, row=4)
+            if  column > 3:
+                column = 0
+                row += 1
 
         self.window.mainloop()
 
@@ -110,4 +66,5 @@ class Calc:
         self.screen_numbers.delete(0, END)
         self.screen_numbers.insert(0, str(valor))
 
-Calc()
+if 'main' == __name__:
+    Calc()
